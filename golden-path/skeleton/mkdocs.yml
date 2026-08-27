@@ -1,0 +1,19 @@
+site_name: <Название проекта>
+plugins:
+  - techdocs-core
+nav:
+  - Назначение: index.md
+  - Контекст: 01-context.md
+  - Контейнеры: 02-containers.md
+  - Поведение: 03-runtime.md
+  - Качество: 04-quality.md
+  - Данные: 05-data.md
+  - Безопасность: 06-security.md
+  - Надёжность: 07-reliability.md
+  - Изменения: 08-change.md
+  - Тестирование: 09-testing.md
+  - Эксплуатация: 10-operations.md
+  - Онбординг: 11-onboarding.md
+  - Глоссарий: glossary.md
+  - Риски: risks.md
+  - Решения: decisions/index.md

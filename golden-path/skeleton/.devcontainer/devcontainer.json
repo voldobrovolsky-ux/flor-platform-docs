@@ -1,0 +1,7 @@
+{
+  "name": "<проект>",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {},
+  "postCreateCommand": "docker compose up -d --wait",
+  "customizations": {}
+}

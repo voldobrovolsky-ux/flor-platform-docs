@@ -1,0 +1,20 @@
+name: docs-gates
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Ecosystem validation
+        run: |
+          BASE=""
+          if [ -n "${{ github.base_ref }}" ]; then
+            git fetch origin "${{ github.base_ref }}"
+            BASE="origin/${{ github.base_ref }}"
+          fi
+          bash golden-path/validator/check-docs.sh --ecosystem ${BASE:+--base "$BASE"}

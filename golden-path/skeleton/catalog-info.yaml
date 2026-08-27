@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: <machine-name>
+  title: <Человекочитаемое имя>
+  description: <одна фраза>
+  annotations:
+    flor.group/tier: "1"
+    backstage.io/techdocs-ref: dir:.
+  tags: [<домен>, <стек>]
+  links:
+    - url: <ссылка на прод>
+      title: Production
+spec:
+  type: service
+  lifecycle: experimental
+  owner: <team|person>
+  system: <имя системы экосистемы>
+  providesApis: []
+  consumesApis: []
+  # пустота объявляется явно: dependsOn: [] — «зависимостей нет»,
+  # отсутствие ключа — незаполненное поле (гейт §9)
+  dependsOn: []

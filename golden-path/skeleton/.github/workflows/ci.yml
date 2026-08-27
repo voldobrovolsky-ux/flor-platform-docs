@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  # Сборка и тесты — внутри того же dev-контейнера, что и кодспейс
+  # (guides/build-and-debug.md: один devcontainer.json на оба контура)
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & test in dev container
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: make build test
+
+  # Гейты документации FLOR-ADS §9 (валидатор золотого пути)
+  docs-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch validator
+        run: |
+          git clone --depth 1 https://github.com/voldobrovolsky-ux/flor-platform-docs /tmp/flor-platform-docs
+      - name: Validate docs
+        run: |
+          BASE=""
+          if [ -n "${{ github.base_ref }}" ]; then
+            git fetch origin "${{ github.base_ref }}"
+            BASE="origin/${{ github.base_ref }}"
+          fi
+          bash /tmp/flor-platform-docs/golden-path/validator/check-docs.sh \
+            --project ${BASE:+--base "$BASE"}
+      - name: TechDocs build
+        run: |
+          pip install mkdocs mkdocs-techdocs-core
+          mkdocs build --strict
